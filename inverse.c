@@ -71,15 +71,26 @@ int main()
     {
         if (matrix[i][i] == 0)
         {
-            double sum = 0, t = 0;
-            for (int q = 0; q < a; q++)
+            double r = 1, t = 0;
+
+            for (int j = 0; j < a; j++)
             {
-                sum += pow(matrix[q][i], 2);
+                if (matrix[j][i] == 0)
+                {
+                    r = 1;
+                }
+                else
+                {
+                    r = 0;
+                    break;
+                }
             }
-            if (sum == 0)
+
+            if (r == 1)
             {
                 continue;
             }
+            
             for (int p = 0; p < a; p++)
             {
                 if (matrix[p][i] != 0)
