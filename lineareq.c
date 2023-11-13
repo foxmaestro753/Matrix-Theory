@@ -62,21 +62,6 @@ int main()
 
     for (int i = 0; i < a; i++)
     {
-        for (int j = 0; j < a; j++)
-        {
-            if (i == j)
-            {
-                transform[i][j] = 1;
-            }
-            else
-            {
-                transform[i][j] = 0;
-            }
-        }
-    }
-
-    for (int i = 0; i < a; i++)
-    {
 
         if (matrix[i][i] == 0)
         {
@@ -133,17 +118,6 @@ int main()
             coefficient[i] = coefficient[i] / e;
         }
 
-        for (int j = 0; j < a; j++)
-        {
-            if (j != i)
-            {
-                transform[j][i] = -matrix[j][i];
-            }
-        }
-
-        matrixmult(a, transform, matrix, product1);
-        matrixmult1(a, transform, coefficient, product2);
-
         for (int i = 0; i < a; i++)
         {
             for (int j = 0; j < a; j++)
@@ -158,6 +132,17 @@ int main()
                 }
             }
         }
+
+        for (int j = 0; j < a; j++)
+        {
+            if (j != i)
+            {
+                transform[j][i] = -matrix[j][i];
+            }
+        }
+
+        matrixmult(a, transform, matrix, product1);
+        matrixmult1(a, transform, coefficient, product2);
 
         for (int i = 0; i < a; i++)
         {
@@ -175,14 +160,18 @@ int main()
 
     for (int i = 0; i < a; i++)
     {
-        double sum = 0, t = 0;
+        double s = 1, t = 0;
 
         for (int j = 0; j < a; j++)
         {
-            sum += pow(matrix[i][j], 2);
+            if (matrix[i][j] != 0)
+            {
+                s = 0;
+                break;
+            }
         }
 
-        if (sum == 0)
+        if (s == 1)
         {
             if (coefficient[i] == 0)
             {
@@ -195,9 +184,16 @@ int main()
                 t = 1;
             }
         }
+
         if (t == 1)
         {
             exit(0);
+        }
+
+        if (t == 0)
+        {
+            break;
+            ;
         }
     }
 

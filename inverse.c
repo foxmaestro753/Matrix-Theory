@@ -43,21 +43,6 @@ int main()
         {
             if (i == j)
             {
-                transform[i][j] = 1;
-            }
-            else
-            {
-                transform[i][j] = 0;
-            }
-        }
-    }
-
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = 0; j < a; j++)
-        {
-            if (i == j)
-            {
                 identity[i][j] = 1;
             }
             else
@@ -122,17 +107,6 @@ int main()
             }
         }
 
-        for (int j = 0; j < a; j++)
-        {
-            if (j != i)
-            {
-                transform[j][i] = -matrix[j][i];
-            }
-        }
-
-        matrixmult(a, transform, matrix, product1);
-        matrixmult(a, transform, identity, product2);
-
         for (int i = 0; i < a; i++)
         {
             for (int j = 0; j < a; j++)
@@ -148,6 +122,17 @@ int main()
             }
         }
 
+        for (int j = 0; j < a; j++)
+        {
+            if (j != i)
+            {
+                transform[j][i] = -matrix[j][i];
+            }
+        }
+
+        matrixmult(a, transform, matrix, product1);
+        matrixmult(a, transform, identity, product2);
+        
         for (int i = 0; i < a; i++)
         {
             for (int j = 0; j < a; j++)
