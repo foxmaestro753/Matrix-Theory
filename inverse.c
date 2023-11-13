@@ -71,15 +71,11 @@ int main()
     {
         if (matrix[i][i] == 0)
         {
-            double r = 1, t = 0;
+            double r = 1;
 
             for (int j = 0; j < a; j++)
             {
-                if (matrix[j][i] == 0)
-                {
-                    r = 1;
-                }
-                else
+                if (matrix[j][i] != 0)
                 {
                     r = 0;
                     break;
@@ -90,38 +86,39 @@ int main()
             {
                 continue;
             }
-            
-            for (int p = 0; p < a; p++)
-            {
-                if (matrix[p][i] != 0)
-                {
-                    for (int j = 0; j < a; j++)
-                    {
-                        double a, b;
-                        a = matrix[p][j];
-                        matrix[p][j] = matrix[i][j];
-                        matrix[i][j] = a;
-                        b = identity[p][j];
-                        identity[p][j] = identity[i][j];
-                        identity[i][j] = b;
-                        t = 1;
-                    }
 
-                    if (t == 1)
-                    {
-                        break;
-                    }
+            double max = fabs(matrix[0][i]);
+            int p = 0;
+
+            for (int k = 1; k < a; k++)
+            {
+                if (fabs(matrix[k][i]) >= max)
+                {
+                    max = fabs(matrix[k][i]);
+                    p = k;
                 }
+            }
+
+            double l = 0, b = 0;
+
+            for (int j = 0; j < a; j++)
+            {
+                l = matrix[p][j];
+                matrix[p][j] = matrix[i][j];
+                matrix[i][j] = l;
+                b = identity[p][j];
+                identity[p][j] = identity[i][j];
+                identity[i][j] = b;
             }
         }
 
         if (matrix[i][i] != 1)
         {
             e = matrix[i][i];
-            for (int p = 0; p < a; p++)
+            for (int q = 0; q < a; q++)
             {
-                matrix[i][p] = matrix[i][p] / e;
-                identity[i][p] = identity[i][p] / e;
+                matrix[i][q] = matrix[i][q] / e;
+                identity[i][q] = identity[i][q] / e;
             }
         }
 
@@ -172,13 +169,10 @@ int main()
 
     for (int i = 0; i < a; i++)
     {
-        if (matrix[i][i] == 1)
+        if (matrix[i][i] != 1)
         {
-            r *= 1;
-        }
-        else
-        {
-            r *= 0;
+            r = 0;
+            break;
         }
     }
 
@@ -197,6 +191,6 @@ int main()
 
     if (r == 0)
     {
-        printf("Inverse of the given matrix does't exist");
+        printf("Inverse of the given matrix does't exist\n");
     }
 }

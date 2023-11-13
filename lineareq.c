@@ -80,15 +80,11 @@ int main()
 
         if (matrix[i][i] == 0)
         {
-            double r = 1, t = 0;
+            double r = 1;
 
             for (int j = 0; j < a; j++)
             {
-                if (matrix[j][i] == 0)
-                {
-                    r = 1;
-                }
-                else
+                if (matrix[j][i] != 0)
                 {
                     r = 0;
                     break;
@@ -100,30 +96,30 @@ int main()
                 continue;
             }
 
-            for (int p = 0; p < a; p++)
+            double max = fabs(matrix[0][i]);
+            int p = 0;
+
+            for (int k = 1; k < a; k++)
             {
-                if (matrix[p][i] != 0)
+                if (fabs(matrix[k][i]) >= max)
                 {
-                    for (int j = 0; j < a; j++)
-                    {
-                        double a;
-                        a = matrix[p][j];
-                        matrix[p][j] = matrix[i][j];
-                        matrix[i][j] = a;
-                        t = 1;
-                    }
-
-                    double b;
-                    b = coefficient[p];
-                    coefficient[p] = coefficient[i];
-                    coefficient[i] = b;
-                }
-
-                if (t == 1)
-                {
-                    break;
+                    max = fabs(matrix[k][i]);
+                    p = k;
                 }
             }
+
+            double l = 0, b = 0;
+
+            for (int j = 0; j < a; j++)
+            {
+                l = matrix[p][j];
+                matrix[p][j] = matrix[i][j];
+                matrix[i][j] = l;
+            }
+
+            b = coefficient[p];
+            coefficient[p] = coefficient[i];
+            coefficient[i] = b;
         }
 
         if (matrix[i][i] != 1)
